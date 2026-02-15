@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN';
+    }
+
+    // Helper function to check if user is owner
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // USERS Collection
+    match /users/{userId} {
+      // Users can read their own profile. Admins can read all.
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can update their own profile (except role). Admins can update everything.
+      // We block users from upgrading their own role to ADMIN.
+      allow update: if (isOwner(userId) && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isActive']))) || isAdmin();
+      
+      // Only system (via Auth trigger) or Admin should create users generally, but for client-side init:
+      allow create: if request.auth != null; 
+    }
+
+    // QUESTIONS Collection
+    match /questions/{questionId} {
+      // Users can read/create their own questions. Admins can read all.
+      allow read: if resource.data.userId == request.auth.uid || isAdmin();
+      allow create: if request.resource.data.userId == request.auth.uid;
+      // No one deletes questions usually, but Admins can if needed
+      allow delete: if isAdmin();
+    }
+    
+    // SECURE ADMIN STATS (Aggregations)
+    // Generally handled via server-side or reading all docs, 
+    // but specific stats docs can be restricted.
+    match /system/stats {
+      allow read: if isAdmin();
+    }
+  }
+}

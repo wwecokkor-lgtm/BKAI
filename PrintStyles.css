@@ -1,0 +1,131 @@
+/* A4 Page Layout */
+.print-container {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 0 auto;
+    background: white;
+    font-family: 'Inter', 'Hind Siliguri', sans-serif;
+    color: #1e293b;
+    line-height: 1.6;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Header Section */
+.print-header {
+    border-bottom: 2px solid #4f46e5;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.print-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.print-logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #4f46e5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.print-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.print-meta {
+    text-align: right;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Content Section */
+.print-question-box {
+    background-color: #f8fafc;
+    border-left: 4px solid #4f46e5;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+}
+
+.print-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.print-question-text {
+    font-weight: 600;
+    font-size: 16px;
+    color: #0f172a;
+}
+
+.print-answer-body {
+    font-size: 14px;
+    text-align: justify;
+}
+
+/* Math Adjustments for Print (MathJax) */
+.print-answer-body mjx-container {
+    font-size: 1.1em !important;
+    overflow: visible !important; /* Ensure full math is printed */
+}
+
+.print-answer-body h1, 
+.print-answer-body h2, 
+.print-answer-body h3 {
+    color: #334155;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+
+.print-answer-body ul, 
+.print-answer-body ol {
+    margin-left: 20px;
+    margin-bottom: 1em;
+}
+
+.print-answer-body p {
+    margin-bottom: 1em;
+}
+
+/* Footer */
+.print-footer {
+    margin-top: 50px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 10px;
+    font-size: 10px;
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.print-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 80px;
+    color: rgba(79, 70, 229, 0.03);
+    font-weight: 900;
+    pointer-events: none;
+    z-index: 0;
+}

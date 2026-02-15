@@ -1,0 +1,8 @@
+{
+  "name": "BK Academy - NCTB Learning",
+  "description": "AI-powered academic assistant for Bangladeshi students (NCTB Curriculum Class 1-12).",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
